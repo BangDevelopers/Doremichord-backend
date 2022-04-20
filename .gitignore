@@ -1,0 +1,4 @@
+cmake-build-debug
+src/main.cpp
+CMakeLists.txt
+ffmpeg_x64
