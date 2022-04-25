@@ -11,18 +11,18 @@
 
 class Bundle {
 protected:
-    unsigned int action_code_;
-    std::shared_ptr<BaseModel> data_model_;
+    unsigned int action_code;
+    std::shared_ptr<BaseModel> data_model;
 public:
-    Bundle(unsigned int actionCode, std::shared_ptr<BaseModel> dataModel) : action_code_(actionCode),
-                                                                                   data_model_(std::move(dataModel)) {}
+    Bundle(unsigned int actionCode, std::shared_ptr<BaseModel> dataModel) : action_code(actionCode),
+                                                                                   data_model(std::move(dataModel)) {}
 
     [[nodiscard]] unsigned int getActionCode() const {
-        return action_code_;
+        return action_code;
     }
 
     [[nodiscard]] const std::shared_ptr<BaseModel> &getDataModel() const {
-        return data_model_;
+        return data_model;
     }
 
     ~Bundle()= default;
