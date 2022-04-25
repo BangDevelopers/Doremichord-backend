@@ -23,8 +23,7 @@ extern "C" {
 
 class MusicPlayer :public IPlayer {
 public:
-    static MusicInfoModel decode(const char *filePath,const char *outPath);
-    static MusicInfoModel fill_music_info_model(AVFormatContext *fmtCtx);
+
 };
 
 #endif //DOREMICHORD_BACKEND_MUSICPLAYER_H

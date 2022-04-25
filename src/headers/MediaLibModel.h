@@ -26,9 +26,12 @@ public:
 
     std::string serialization() override;
 
+    template<typename T> T& findAttributeByName(std::string name);
+
     bool construction(std::string serialized_text) override;
 
     ~MediaLibModel() override;
+
 };
 
 #endif //DOREMICHORD_BACKEND_MEDIALIBMODEL_H

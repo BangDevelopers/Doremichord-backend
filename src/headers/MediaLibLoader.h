@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <memory>
 #include <filesystem>
 #include "MediaLibModel.h"
 
@@ -25,7 +26,7 @@ static std::list<std::string> supported_music_formats = std::list<std::string>({
 
 class MediaLibLoader {
 public:
-    static MediaLibModel load(const std::string &path);
+    static std::shared_ptr<MediaLibModel> load(const std::string &path);
 
     static std::vector<std::string> getFiles(const std::string &path);
 };
