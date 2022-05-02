@@ -6,12 +6,16 @@
 #define DOREMICHORD_BACKEND_FILELOADER_H
 
 #include <string>
+#include "json.h"
 #include "base/BaseModel.h"
 #include "base/ModelRegister.h"
 
 class FileLoader{
 public:
-    static std::string load(const std::string &path,const int model_type);
+    bool load(const std::string &path,Json::Value &root);
+    bool write(const std::string &path,const Json::Value &root);
 };
+
+
 
 #endif //DOREMICHORD_BACKEND_FILELOADER_H
