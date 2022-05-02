@@ -12,6 +12,8 @@ class BaseModel {
 private:
     static std::vector<std::string> Variable_names;
     static int Model_type;
+    void findAttributeByName(const std::string name);
+    static void InitModel();
 protected:
     bool serializable;
 public:
@@ -21,7 +23,7 @@ public:
 
     virtual ~BaseModel() = 0;
 
-    virtual void findAttributeByName(const std::string name) = 0;
+
 
 };
 
