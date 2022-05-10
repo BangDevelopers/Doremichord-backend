@@ -3,32 +3,8 @@
 //
 #include "MusicInfoModel.h"
 
-MusicInfoModel::MusicInfoModel() {}
+MusicInfoModel::MusicInfoModel() = default;
 
-template<typename T>
-T& MusicInfoModel::findAttributeByName(std::string name) {
-    if (name == "artist") {
-        return artist;
-    } else if (name == "title") {
-        return title;
-    } else if (name == "album") {
-        return album;
-    } else if (name == "composer") {
-        return composer;
-    } else if (name == "path") {
-        return path;
-    } else if (name == "cover_path") {
-        return cover_path;
-    } else if (name == "sample_rate") {
-        return sample_rate;
-    } else if (name == "bit_rate") {
-        return bit_rate;
-    } else if (name == "length") {
-        return length;
-    } else {
-        return "";
-    }
-}
 
 std::string MusicInfoModel::serialization() {
     Json::Value root;
@@ -62,4 +38,76 @@ bool MusicInfoModel::construction(const std::string serialized_text) {
     return true;
 }
 
-MusicInfoModel::~MusicInfoModel() {}
+const std::string &MusicInfoModel::getArtist() const {
+    return artist;
+}
+
+const std::string &MusicInfoModel::getTitle() const {
+    return title;
+}
+
+const std::string &MusicInfoModel::getAlbum() const {
+    return album;
+}
+
+const std::string &MusicInfoModel::getComposer() const {
+    return composer;
+}
+
+const std::string &MusicInfoModel::getPath() const {
+    return path;
+}
+
+const std::string &MusicInfoModel::getCoverPath() const {
+    return cover_path;
+}
+
+int MusicInfoModel::getSampleRate() const {
+    return sample_rate;
+}
+
+int MusicInfoModel::getBitRate() const {
+    return bit_rate;
+}
+
+int MusicInfoModel::getLength() const {
+    return length;
+}
+
+void MusicInfoModel::setArtist(const std::string &artist) {
+    MusicInfoModel::artist = artist;
+}
+
+void MusicInfoModel::setTitle(const std::string &title) {
+    MusicInfoModel::title = title;
+}
+
+void MusicInfoModel::setAlbum(const std::string &album) {
+    MusicInfoModel::album = album;
+}
+
+void MusicInfoModel::setComposer(const std::string &composer) {
+    MusicInfoModel::composer = composer;
+}
+
+void MusicInfoModel::setPath(const std::string &path) {
+    MusicInfoModel::path = path;
+}
+
+void MusicInfoModel::setCoverPath(const std::string &coverPath) {
+    cover_path = coverPath;
+}
+
+void MusicInfoModel::setSampleRate(int sampleRate) {
+    sample_rate = sampleRate;
+}
+
+void MusicInfoModel::setBitRate(int bitRate) {
+    bit_rate = bitRate;
+}
+
+void MusicInfoModel::setLength(int length) {
+    MusicInfoModel::length = length;
+}
+
+MusicInfoModel::~MusicInfoModel() = default;

@@ -15,9 +15,6 @@
 
 
 class LrcModel : public BaseModel {
-private:
-    static std::vector<std::string> Variable_names;
-    static int Model_type;
 protected:
     std::string lrc_path;
     std::vector<std::pair<int, std::string> > lrc_list;
@@ -25,17 +22,14 @@ public:
 
     LrcModel();
 
-    static void Init_Model();
 
     std::string serialization() override;
 
     bool construction(std::string serialized_text) override;
 
-    ~LrcModel() override;
+    ~LrcModel();
 
 
-    template<class T>
-    T findAttributeByName(std::string name);
 
     [[nodiscard]] const std::string &getLrcPath() const;
 

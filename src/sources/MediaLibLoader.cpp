@@ -13,19 +13,19 @@ std::shared_ptr<MediaLibModel> MediaLibLoader::load(const std::string &path) {
         throw std::runtime_error("Not a directory: " + path);
     }
     std::shared_ptr<MediaLibModel> model = std::make_shared<MediaLibModel>();
-    model->findAttributeByName<std::string>("path") = p.string();
+    model->path = p.string();
     for (auto &entry: std::filesystem::recursive_directory_iterator(p)) {
         if (entry.is_regular_file()) {
             for (auto &s: supported_music_formats) {
                 if (entry.path().extension() == s) {
-                    model->findAttributeByName<std::vector<std::string> >("musics_list").push_back(
+                    model->musics_list.emplace_back(
                             entry.path().string());
-                    model->findAttributeByName<int>("musics_count") += 1;
+                    model->musics_count += 1;
                     break;
                 }
             }
             if (entry.path().extension() == ".lrc") {
-                model->findAttributeByName<std::vector<std::string> >("lrcs_list").push_back(entry.path().string());
+                model->lrcs_list.emplace_back(entry.path().string());
             }
         }
     }

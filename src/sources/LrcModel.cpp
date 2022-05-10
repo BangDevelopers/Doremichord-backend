@@ -6,12 +6,6 @@
 
 
 
-void LrcModel::Init_Model() {
-    LrcModel::Model_type = TYPE_LRC_MODEL;
-    LrcModel::Variable_names = std::vector<std::string>();
-    LrcModel::Variable_names.emplace_back("lrc_path");
-    LrcModel::Variable_names.emplace_back("lrc_list");
-}
 
 
 LrcModel::LrcModel() {}
@@ -48,15 +42,6 @@ LrcModel::~LrcModel() {
     lrc_list.clear();
 }
 
-template<class T>
-T LrcModel::findAttributeByName(const std::string name) {
-    if (name == "lrc_path") {
-        return lrc_path;
-    } else if (name == "lrc_list") {
-        return lrc_list;
-    }
-    return NULL;
-}
 
 const std::string &LrcModel::getLrcPath() const {
     return lrc_path;

@@ -20,19 +20,56 @@ protected:
     std::string composer;
     std::string path;
     std::string cover_path;
-    int sample_rate;
-    int bit_rate;
-    int length;
+    int sample_rate{0};
+    int bit_rate{0};
+    int length{0};
 public:
     MusicInfoModel();
 
+    const std::string &getArtist() const;
+
+    const std::string &getTitle() const;
+
+    const std::string &getAlbum() const;
+
+    const std::string &getComposer() const;
+
+    const std::string &getPath() const;
+
+    const std::string &getCoverPath() const;
+
+    int getSampleRate() const;
+
+    int getBitRate() const;
+
+    int getLength() const;
+
+    void setArtist(const std::string &artist);
+
+    void setTitle(const std::string &title);
+
+    void setAlbum(const std::string &album);
+
+    void setComposer(const std::string &composer);
+
+    void setPath(const std::string &path);
+
+    void setCoverPath(const std::string &coverPath);
+
+    void setSampleRate(int sampleRate);
+
+    void setBitRate(int bitRate);
+
+    void setLength(int length);
+
+    friend class MusicInfoLoader;
+
     std::string serialization() override;
 
-    bool construction(const std::string serialized_text) override;
+    bool construction(std::string serialized_text) override;
 
-    ~MusicInfoModel() override;
+    ~MusicInfoModel();
 
-    template<typename T> T& findAttributeByName(std::string name);
 };
 
 #endif //DOREMICHORD_BACKEND_MUSICINFOMODEL_H

@@ -9,25 +9,37 @@ std::shared_ptr<MusicInfoModel> MusicInfoLoader::load(const std::string &path) {
     if (avformat_open_input(&fmtCtx, path.c_str(), nullptr, nullptr) >= 0) {
 
         AVDictionary *metadata = fmtCtx->metadata;
+        AVDictionaryEntry *avd = nullptr;
 
-        model->findAttributeByName<std::string>("title") = av_dict_get(metadata, "TITLE", nullptr, 0)->value;
-        model->findAttributeByName<std::string>("artist") = av_dict_get(metadata, "ARTIST", nullptr, 0)->value;
-        model->findAttributeByName<std::string>("album") = av_dict_get(metadata, "ALBUM", nullptr, 0)->value;
-        model->findAttributeByName<std::string>("composer") = av_dict_get(metadata, "COMPOSER", nullptr, 0)->value;
-
+        if ((avd = av_dict_get(metadata, "TITLE", nullptr, 0))) {
+            model->title = avd->value;
+        }
+        if ((avd = av_dict_get(metadata, "ARTIST", nullptr, 0))) {
+            model->artist = avd->value;
+        }
+        if ((avd = av_dict_get(metadata, "ALBUM", nullptr, 0))) {
+            model->album = avd->value;
+        }
+        if ((avd = av_dict_get(metadata, "COMPOSER", nullptr, 0))) {
+            model->composer = avd->value;
+        }
         if (fmtCtx->iformat->read_header(fmtCtx) >= 0) {
-            FILE *img = fopen(
-                    (std::string("tmp\\") + model->findAttributeByName<std::string>("title") + ".jpg").c_str(), "wb");
+
             for (int i = 0; i < fmtCtx->nb_streams; i++) {
                 if (fmtCtx->streams[i]->disposition & AV_DISPOSITION_ATTACHED_PIC) {
+                    std::string file_path = ("./tmp/" + model->title + ".jpg");
+                    FILE *img = fopen(
+                            file_path.c_str(), "wb");
                     AVPacket pkt = fmtCtx->streams[i]->attached_pic;
                     fwrite(pkt.data, 1, pkt.size, img);
+                    fclose(img);
                 }
             }
-            fclose(img);
-            model->findAttributeByName<std::string>("cover_path") =
-                    std::string("tmp\\") + model->findAttributeByName<std::string>("title") + ".jpg";
+
+            model->cover_path =
+                    "./tmp/" + model->title + ".jpg";
         }
+        model->path = std::string(path);
     }
     return model;
 }

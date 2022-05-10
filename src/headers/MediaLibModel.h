@@ -9,12 +9,8 @@
 #include <vector>
 #include "json.h"
 #include "base/BaseModel.h"
-#include "base/ModelRegister.h"
 
 class MediaLibModel :public BaseModel{
-private:
-    static unsigned int Model_type;
-    static std::vector<std::string> Variable_names;
 protected:
     std::string path;
     std::vector<std::string> musics_list;
@@ -22,15 +18,16 @@ protected:
     int musics_count;
 
 public:
-    static void InitModel();
+
+    friend class MediaLibLoader;
+
+    const std::vector<std::string> &getMusicsList() const;
 
     std::string serialization() override;
 
-    template<typename T> T& findAttributeByName(std::string name);
-
     bool construction(std::string serialized_text) override;
 
-    ~MediaLibModel() override;
+    ~MediaLibModel();
 
 };
 

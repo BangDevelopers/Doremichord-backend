@@ -12,79 +12,73 @@ extern "C" {
 #include <iostream>
 #include <filesystem>
 #include <string>
+#include <direct.h>
 #include <vector>
+#include <iconv.h>
 #include "json.h"
+#include "MusicInfoLoader.h"
+#include "MediaLibLoader.h"
 
 using namespace std;
 
 #define MAX_AUDIO_FRAME_SIZE 384000
 
-//
-//int main() {
-//    string path = "C:\\Users\\Azusa\\Desktop\\qv2ray";
-//    filesystem::path p(path);
-//    if (filesystem::exists(p) && filesystem::is_directory(p)) {
-//        for (auto &entry: filesystem::recursive_directory_iterator(p)) {
-//            cout << entry.path().filename().string() << "  " <<is_regular_file(entry.path())<< endl;
-//        }
-//    }
-//    return 0;
-//}
-
-
-//    std::string js = "{\"va\":[1,2,3]}";
-//    Json::Reader reader;
-//    Json::Value root;
-//    std::vector<int> v;
-//    v.emplace_back(1);
-//    v.emplace_back(2);
-//    v.emplace_back(3);
-//    int a[] = {1,2,3};
-//    if(reader.parse(js,root)){
-//        Json::Value vv;
-//        vv.append(1);
-//        vv.append(2);
-//        vv.append(3);
-//        root["vv"] = vv;
-//        std::cout<<root["vv"].type();
-//    }
-//    return 0;
-//}
 
 int main() {
-    const char inFileName[] = "music.flac";
-    const char outFileName[] = "test2.pcm";
-    FILE *file = fopen(outFileName, "w+b");
-    if (!file) {
-        printf("Cannot open output file.\n");
-        exit(1);
-    }
-
-    AVFormatContext *fmtCtx = avformat_alloc_context();
-    AVCodecContext *codecCtx = NULL;
-    AVPacket *pkt = av_packet_alloc();
-    AVFrame *frame = av_frame_alloc();
-
-    int aStreamIndex = -1;
-
-    if (avformat_open_input(&fmtCtx, inFileName, NULL, NULL) < 0) {
-        printf("Cannot open input file.\n");
-        return 1;
-    }
-    if (avformat_find_stream_info(fmtCtx, NULL) < 0) {
-        printf("Cannot find any stream in file.\n");
-        return 1;
-    }
-
-    av_dump_format(fmtCtx, 0, inFileName, 0);
-
-    AVDictionary *md = fmtCtx->metadata;
-    if (md) {
-        AVDictionaryEntry *tag = NULL;
-        while ((tag = av_dict_get(md, "", tag, AV_DICT_IGNORE_SUFFIX))) {
-            printf("%s: %s\n", tag->key, tag->value);
-        }
-    }
+//    std::shared_ptr<MediaLibModel> p = MediaLibLoader::load("./");
+//    if (p != nullptr) {
+//        for (auto &m: p->getMusicsList()) {
+//            std::shared_ptr<MusicInfoModel> mp = MusicInfoLoader::load(m);
+//            cout << mp->serialization()<< endl;
+//        }
+//    }
+    std::string s= "Ring of Fortune(TV\u30a2\u30cb\u30e1\u300c\u30d7\u30e9\u30b9\u30c6\u30a3\u30c3\u30af\u30fb\u30e1\u30e2\u30ea\u30fc\u30ba\u300d\u30aa\u30fc\u30d7\u30cb\u30f3\u30b0\u30c6\u30fc\u30de)";
+    libiconv_t it = libiconv_open("UTF-8", "GBK");
+    std::string s2;
+    libiconv(it, reinterpret_cast<char **>(&s), reinterpret_cast<size_t *>(s.size()), reinterpret_cast<char **>(&s2),
+          reinterpret_cast<size_t *>(s.size()));
+    cout << s2;
+//    std::filesystem::path p("./");
+//    cout << p;
+//    for (auto &entry: std::filesystem::recursive_directory_iterator(p)) {
+//        cout << entry.path().filename()<<endl;
+//    }
+    return 0;
+}
+//int main() {
+//    const char inFileName[] = "test3.flac";
+//    const char outFileName[] = "test3.pcm";
+//    FILE *file = fopen(outFileName, "w+b");
+//    if (!file) {
+//        printf("Cannot open output file.\n");
+//        exit(1);
+//    }
+//
+//    AVFormatContext *fmtCtx = avformat_alloc_context();
+//    AVCodecContext *codecCtx = NULL;
+//    AVPacket *pkt = av_packet_alloc();
+//    AVFrame *frame = av_frame_alloc();
+//
+//    int aStreamIndex = -1;
+//
+//    if (avformat_open_input(&fmtCtx, inFileName, NULL, NULL) < 0) {
+//        printf("Cannot open input file.\n");
+//        return 1;
+//    }
+//    if (avformat_find_stream_info(fmtCtx, NULL) < 0) {
+//        printf("Cannot find any stream in file.\n");
+//        return 1;
+//    }
+//
+//    av_dump_format(fmtCtx, 0, inFileName, 0);
+//
+//    AVDictionary *md = fmtCtx->metadata;
+//    if (md) {
+//        AVDictionaryEntry *tag = NULL;
+//        while ((tag = av_dict_get(md, "", tag, AV_DICT_IGNORE_SUFFIX))) {
+//            printf("%s: %s\n", tag->key, tag->value);
+//        }
+//    }
 //    FILE *img = fopen("test.jpg", "wb");
 //    if(fmtCtx->iformat->read_header(fmtCtx) < 0){
 //        printf("Cannot read header.\n");
@@ -136,7 +130,7 @@ int main() {
 //    SwrContext *swr_ctx = swr_alloc_set_opts(NULL,
 //                                             out_channel_layout,
 //                                             out_sample_fmt,
-//                                             96000,
+//                                             codecCtx->sample_rate,
 //                                             codecCtx->channel_layout,
 //                                             codecCtx->sample_fmt,
 //                                             codecCtx->sample_rate,
@@ -170,14 +164,14 @@ int main() {
 //        av_packet_unref(pkt);
 //    }
 //
-    av_frame_free(&frame);
-    av_packet_free(&pkt);
-    avcodec_close(codecCtx);
-    avcodec_free_context(&codecCtx);
-    avformat_free_context(fmtCtx);
-
-    fclose(file);
-
-    return 0;
-}
+//    av_frame_free(&frame);
+//    av_packet_free(&pkt);
+//    avcodec_close(codecCtx);
+//    avcodec_free_context(&codecCtx);
+//    avformat_free_context(fmtCtx);
+//
+//    fclose(file);
+//
+//    return 0;
+//}
 

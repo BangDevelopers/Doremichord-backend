@@ -28,7 +28,6 @@ class MediaLibLoader {
 public:
     static std::shared_ptr<MediaLibModel> load(const std::string &path);
 
-    static std::vector<std::string> getFiles(const std::string &path);
 };
 
 #endif //DOREMICHORD_BACKEND_MEDIALIBLOADER_H

@@ -15,10 +15,12 @@ extern "C" {
 #include <filesystem>
 #include "MusicInfoModel.h"
 
-class MusicInfoModel;
 
 class MusicInfoLoader {
+public:
     static std::shared_ptr<MusicInfoModel> load(const std::string &path);
 };
+
+
 
 #endif //DOREMICHORD_BACKEND_MUSICINFOLOADER_H
