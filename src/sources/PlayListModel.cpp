@@ -9,10 +9,9 @@ std::string PlayListModel::serialization() {
     if (!musics_list.empty()) {
         Json::Value musics;
         for (auto &music: musics_list) {
-            musics.append(music->serialization());
+            musics.append(music);
         }
         root["musics"] = musics;
-
     }
     return root.toStyledString();
 }
@@ -26,6 +25,20 @@ bool PlayListModel::construction(std::string serialized_text) {
     name = root["name"].asString();
     Json::Value musics = root["musics"];
     for (auto &music: musics) {
+        musics_list.push_back(music.asString());
     }
     return true;
 }
+
+const std::string &PlayListModel::getName() const {
+    return name;
+}
+
+ std::vector<std::string> &PlayListModel::getMusicsList() {
+    return musics_list;
+}
+
+void PlayListModel::setName(const std::string &name) {
+    PlayListModel::name = name;
+}
+

@@ -21,7 +21,7 @@ extern "C" {
 #include "/base/IPlayer.h"
 #include "MusicInfoModel.h"
 
-class MusicPlayer :public IPlayer {
+class MusicPlayer{
 public:
 
 };
