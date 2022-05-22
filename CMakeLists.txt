@@ -6,7 +6,7 @@ set(CMAKE_CXX_FLAGS "-liconv")
 
 file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/src/sources/*.cpp")
 
-add_executable(Doremichord_backend ${SOURCES} src/main.cpp)
+add_executable(Doremichord_backend ${SOURCES} src/main.cpp src/sources/UserFile.cpp src/headers/UserFile.h src/sources/FileCryption.cpp src/headers/FileCryption.h)
 
 include_directories(${PROJECT_SOURCE_DIR}/ffmpeg_x64/include ${PROJECT_SOURCE_DIR}/jsoncpp/include ${PROJECT_SOURCE_DIR}/src/headers ${PROJECT_SOURCE_DIR}/src/base)
 link_directories(${PROJECT_SOURCE_DIR}/ffmpeg_x64/lib ${PROJECT_SOURCE_DIR}/jsoncpp/lib)
