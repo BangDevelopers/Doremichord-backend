@@ -1,4 +1,4 @@
-extern "C" {
+/*extern "C" {
 #include "libavcodec/avcodec.h"
 #include "libavutil/avutil.h"
 #include "libavutil/mem.h"
@@ -7,17 +7,18 @@ extern "C" {
 #include "libswresample/swresample.h"
 #include "libavformat/avformat.h"
 #include "libavutil/samplefmt.h"
-}
+}*/
 
 #include <iostream>
 #include <filesystem>
 #include <string>
 #include <direct.h>
 #include <vector>
-#include <iconv.h>
-#include "json.h"
+/*#include <iconv.h>*/
+/*#include "json.h"
 #include "MusicInfoLoader.h"
-#include "MediaLibLoader.h"
+#include "MediaLibLoader.h"*/
+#include "UserFile.h"
 
 using namespace std;
 
@@ -25,6 +26,15 @@ using namespace std;
 
 
 int main() {
+    UserFile ur;
+    bool test=ur.user_register("RCGss123","123456");
+    if(test==true){
+        cout<<1<<endl;
+    }
+    else{
+        cout<<0<<endl;
+    }
+}
 //    std::shared_ptr<MediaLibModel> p = MediaLibLoader::load("./");
 //    if (p != nullptr) {
 //        for (auto &m: p->getMusicsList()) {
@@ -32,19 +42,19 @@ int main() {
 //            cout << mp->serialization()<< endl;
 //        }
 //    }
-    std::string s= "Ring of Fortune(TV\u30a2\u30cb\u30e1\u300c\u30d7\u30e9\u30b9\u30c6\u30a3\u30c3\u30af\u30fb\u30e1\u30e2\u30ea\u30fc\u30ba\u300d\u30aa\u30fc\u30d7\u30cb\u30f3\u30b0\u30c6\u30fc\u30de)";
-    libiconv_t it = libiconv_open("UTF-8", "GBK");
-    std::string s2;
-    libiconv(it, reinterpret_cast<char **>(&s), reinterpret_cast<size_t *>(s.size()), reinterpret_cast<char **>(&s2),
-          reinterpret_cast<size_t *>(s.size()));
-    cout << s2;
+//    std::string s= "Ring of Fortune(TV\u30a2\u30cb\u30e1\u300c\u30d7\u30e9\u30b9\u30c6\u30a3\u30c3\u30af\u30fb\u30e1\u30e2\u30ea\u30fc\u30ba\u300d\u30aa\u30fc\u30d7\u30cb\u30f3\u30b0\u30c6\u30fc\u30de)";
+//    libiconv_t it = libiconv_open("UTF-8", "GBK");
+//    std::string s2;
+//    libiconv(it, reinterpret_cast<char **>(&s), reinterpret_cast<size_t *>(s.size()), reinterpret_cast<char **>(&s2),
+//          reinterpret_cast<size_t *>(s.size()));
+//    cout << s2;
 //    std::filesystem::path p("./");
 //    cout << p;
 //    for (auto &entry: std::filesystem::recursive_directory_iterator(p)) {
 //        cout << entry.path().filename()<<endl;
 //    }
-    return 0;
-}
+//    return 0;
+//}
 //int main() {
 //    const char inFileName[] = "test3.flac";
 //    const char outFileName[] = "test3.pcm";
