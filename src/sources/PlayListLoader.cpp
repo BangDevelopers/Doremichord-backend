@@ -19,6 +19,8 @@ PlayListModel PlayListLoader::load(const std::string &path, std::vector<std::sha
         for (auto &j: all) {
             if (j->getPath() == i.asString()) {
                 model.getMusicsList().push_back(i.asString());
+                std::shared_ptr<MusicInfoModel> tmp = std::shared_ptr<MusicInfoModel>(j);
+                model.musics.emplace_back(tmp);
             }
         }
     }

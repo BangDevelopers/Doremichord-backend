@@ -15,7 +15,11 @@ class PlayListModel : public BaseModel {
 protected:
     std::string name;
     std::vector<std::string> musics_list;
+    std::vector<std::shared_ptr<MusicInfoModel> > musics;
 public:
+
+    friend class PlayListLoader;
+
     std::string serialization() override;
 
     bool construction(std::string serialized_text) override;

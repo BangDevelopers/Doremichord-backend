@@ -17,13 +17,23 @@ extern "C" {
 }
 
 #include <cstdio>
+#include <string>
+#include <vector>
+#include <memory>
 
-#include "/base/IPlayer.h"
+
 #include "MusicInfoModel.h"
+#include "PlayListModel.h"
 
 class MusicPlayer{
+private:
+    std::vector<std::shared_ptr<MusicInfoModel> > all_songs;
+    std::vector<std::shared_ptr<PlayListModel> > all_play_lists;
 public:
-
+    MusicPlayer();
+    static bool decode(std::shared_ptr<MusicInfoModel> &model);
+    bool load_media_libs(std::vector<std::string> &list);
+    bool sort_list(std::vector<std::shared_ptr<MusicInfoModel> > &list, std::string base);
 };
 
 #endif //DOREMICHORD_BACKEND_MUSICPLAYER_H
