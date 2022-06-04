@@ -6,10 +6,11 @@
 #define DOREMICHORD_BACKEND_LRCLOADER_H
 
 #include "LrcModel.h"
+#include<QFile>
 
 class LrcLoader {
 public:
-    static LrcModel load(const char *path);
+    static LrcModel* load(const char *path);
 };
 
 #endif //DOREMICHORD_BACKEND_LRCLOADER_H
