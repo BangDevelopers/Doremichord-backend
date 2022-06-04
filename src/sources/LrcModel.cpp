@@ -8,7 +8,8 @@
 
 
 
-LrcModel::LrcModel() {}
+LrcModel::LrcModel(QObject*parent):QObject(parent) {}
+
 
 std::string LrcModel::serialization() {
     Json::Value root;
