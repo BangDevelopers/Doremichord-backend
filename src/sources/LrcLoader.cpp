@@ -12,11 +12,8 @@ LrcModel* LrcLoader::load(const char *path) {
     LrcModel *Model=new LrcModel();
 
     QFile File(path);
-    
-
-    
-
-   QString Line;
+    File.open(QFile::ReadOnly | QFile::Text);
+    QString Line;
     while (!File.atEnd()) {
         Line=File.readLine();
         Line=Line.mid(0,Line.length()-1);
