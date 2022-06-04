@@ -9,25 +9,26 @@
 #include <vector>
 #include <list>
 #include <map>
+#include<QObject>
 #include "json.h"
 #include "base/BaseModel.h"
-#include "base/ModelRegister.h"
 
 
-class LrcModel : public BaseModel {
+class LrcModel : public QObject, public BaseModel {
+    Q_OBJECT
 protected:
     std::string lrc_path;
     std::vector<std::pair<int, std::string> > lrc_list;
 public:
 
-    LrcModel();
+    LrcModel(QObject*parent=nullptr);
+    ~LrcModel();
 
 
     std::string serialization() override;
 
     bool construction(std::string serialized_text) override;
 
-    ~LrcModel();
 
 
 
